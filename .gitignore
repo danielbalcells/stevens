@@ -1,0 +1,5 @@
+notion_secret_key
+openai_secret_key
+*.swp
+*.swo
+.ipynb*
