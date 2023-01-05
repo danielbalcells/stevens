@@ -1,0 +1,45 @@
+INSTRUCTIONS:
+From the text below, extract the following entities:
+Organizations: All platforms, products, companies and institutions mentioned by name (e.g. "Google", "FIFA", "World Bank"). Exclude broad terms such as industries ("Record Labels") that don't refer to specific companies. Exclude names of places (e.g. "Switzerland") and people (e.g. "Bill Gates").
+People: All people mentioned by their full name (e.g. John Doe). Exclude people mentioned only by first name (e.g. Peter).
+Places: All cities (e.g. Barcelona), regions (e.g. California) and countries (e.g. Italy) mentioned by name.
+Tags: At least 20 and ideally 50 of the most relevant, unusual, surprising and salient topics, ideas and themes the author is exploring and writing about. Also include topics that are mentioned in passing, or in relatively short fragments of the text. Make the topic names short and concise (e.g. use "Streaming Economics" instead of "The economics of music streaming")
+Capitalize each of the entities in title case.
+Format the results as a JSON dictionary containing all of the lists described above:
+{
+    "organizations": [
+        # list of organization entities goes here
+    ],
+    "people": [
+        # list of people entities goes here
+    ],
+    "places": [
+        # list of place entities goes here
+    ],
+    "tags": [
+        # list of tag entities goes here
+    ]
+}
+
+EXAMPLE TEXT:
+###
+Pedro Cano and I were talking about the electric car industry and he suggested that we rent a Tesla for our trip to LA with Alex and Enric. I’m finding it harder to hate things lately. I find it hard to sympathize with people who immediately assign malice to people or companies they know little about, instead of trying to understand what they might not know. Despite not being a huge fan of Elon Musk, I don’t feel the need to join the online polarization about him and transfer that energy to my impressions of a Tesla.
+###
+
+EXAMPLE OUTPUT:
+###
+{
+    "organizations": [
+        "Tesla"
+    ],
+    "people": [
+        "Pedro Cano", "Elon Musk"
+    ],
+    "places": [
+        "Los Angeles"
+    ],
+    "tags": [
+        "Electric Cars", "Empathy", "Hating", "Polarization", "Celebrities", "Online Behavior"
+    ]
+}
+###

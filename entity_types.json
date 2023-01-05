@@ -1,0 +1,30 @@
+{
+    "Organizations": {
+        "notion_database_id": "ec516282ca5248c3bd52d7cede238bc6",
+        "openai_response_key": "organizations",
+        "notion_relation_name": "Organizations",
+        "notion_title_property": "Name",
+        "notion_emoji": "\ud83c\udfe2"
+    },
+    "People": {
+        "notion_database_id": "748131dafe774e4a9ad5c0c259f69aba",
+        "openai_response_key": "people",
+        "notion_relation_name": "People",
+        "notion_title_property": "Name",
+        "notion_emoji": "\ud83d\udc64"
+    },
+    "Places": {
+        "notion_database_id": "9c8884e3303a49238e44d9aad9d7e50e",
+        "openai_response_key": "places",
+        "notion_relation_name": "Places",
+        "notion_title_property": "Name",
+        "notion_emoji": "\ud83d\udccc"
+    },
+    "Tags": {
+        "notion_database_id": "e01ea0835efe472e82bf197f9a16a92f",
+        "openai_response_key": "tags",
+        "notion_relation_name": "Tags",
+        "notion_title_property": "Name",
+        "notion_emoji": "\ud83c\udff7"
+    }
+}
