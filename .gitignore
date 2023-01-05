@@ -3,3 +3,4 @@ openai_secret_key
 *.swp
 *.swo
 .ipynb*
+__pycache__
