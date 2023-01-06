@@ -29,8 +29,8 @@ class OpenAIController(object):
             engine=self.engine
         )
 
-    def extract_entities(self, text, entity_types):
-        entities = self.entity_extractor.extract(text, entity_types)
+    def extract_entities(self, text):
+        entities = self.entity_extractor.extract(text)
         return entities
 
 
@@ -47,13 +47,14 @@ class EntityExtractor(object):
         self.prompt_template = prompt_template
         self.engine = engine
 
-    def extract(self, texti, entity_types):
+    def extract(self, text):
         prompt = self.add_text_to_prompt(text)
         entities_dict = self.run_completion(prompt)
         entities = self.format_entities(entities_dict)
+        return entities
 
     def add_text_to_prompt(self, text):
-        return f"""
+        return self.prompt_template + f"""
         REAL TEXT:
         ###
         {text}
@@ -65,11 +66,12 @@ class EntityExtractor(object):
     def run_completion(self, prompt):
         extraction = openai.Completion.create(
             engine=self.engine,
-            prompt=extraction_prompt,
+            prompt=prompt,
             max_tokens=1024,
             temperature=0.1
         )
         entities_text = extraction['choices'][0]['text']
+        print(entities_text)
         return json.loads(entities_text)
 
     def format_entities(self, entities_dict):

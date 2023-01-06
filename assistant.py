@@ -33,5 +33,5 @@ class Assistant(object):
 
     def tag_page_entities(self, page_id):
         page = self.notion.get_page(page_id)
-        entities = self.openai.extract_entities(page.as_plaintext())
+        entities = self.openai.extract_entities(page.plaintext)
         self.notion.add_entity_relations(page, entities)
