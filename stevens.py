@@ -8,7 +8,7 @@ DEFAULT_OPENAI_KEY = 'openai_secret_key'
 DEFAULT_ENTITY_TYPES = 'entity_types.json'
 
 
-class Assistant(object):
+class Stevens(object):
 
     def __init__(self, entity_types=DEFAULT_ENTITY_TYPES):
         self.entity_types = self.load_entity_types(entity_types)
