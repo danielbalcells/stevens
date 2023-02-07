@@ -32,6 +32,15 @@ class Stevens(object):
         return entity_types
 
     def tag_page_entities(self, page_id):
-        page = self.notion.get_page(page_id)
-        entities = self.openai.extract_entities(page.plaintext)
+        page = self.notion.get_page(page_id, retrieve_blocks=True)
+        entities = self.openai.extract_entities(page.get_plaintext())
         self.notion.add_entity_relations(page, entities)
+
+def group_entities_by_type(entities):
+    entities_by_type = {}
+    for entity in entities:
+        entity_type = entity.entity_type
+        if entity_type not in entities_by_type.keys():
+            entities_by_type[entity_type] = []
+        entities_by_type[entity_type].append(entity)
+    return entities_by_type

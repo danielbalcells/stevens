@@ -9,6 +9,7 @@ with open(DEFAULT_OPENAI_KEY) as f:
     openai.api_key = KEY
 DEFAULT_ENGINE = 'text-davinci-003'
 DEFAULT_PROMPTS_FILE = 'prompts.json'
+PROMPT_CHUNK_LEN_CHARS = 10000
 
 
 class OpenAIController(object):
@@ -48,9 +49,13 @@ class EntityExtractor(object):
         self.engine = engine
 
     def extract(self, text):
-        prompt = self.add_text_to_prompt(text)
-        entities_dict = self.run_completion(prompt)
-        entities = self.format_entities(entities_dict)
+        entities = []
+        text_chunks = split_string_by_chunk_size(text, PROMPT_CHUNK_LEN_CHARS)
+        for text_chunk in text_chunks:
+            prompt = self.add_text_to_prompt(text_chunk)
+            entities_dict = self.run_completion(prompt)
+            chunk_entities = self.format_entities(entities_dict)
+            entities += chunk_entities
         return entities
 
     def add_text_to_prompt(self, text):
@@ -71,15 +76,15 @@ class EntityExtractor(object):
             temperature=0.1
         )
         entities_text = extraction['choices'][0]['text']
-        print(entities_text)
         return json.loads(entities_text)
 
     def format_entities(self, entities_dict):
-        entities = {}
+        entities = []
         for entity_type in self.entity_types:
-            this_type_entities = []
             for entity_name in entities_dict[entity_type.openai_response_key]:
                 entity = Entity(name=entity_name, entity_type=entity_type)
-                this_type_entities.append(entity)
-            entities[entity_type] = this_type_entities
+                entities.append(entity)
         return entities
+
+def split_string_by_chunk_size(string, chunk_size=PROMPT_CHUNK_LEN_CHARS):
+    return [string[i:i+chunk_size] for i in range(0, len(string), chunk_size)]
